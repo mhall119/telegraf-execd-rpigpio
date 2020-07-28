@@ -3,37 +3,37 @@ GOARCH ?= $(shell go env GOARCH)
 GOARM ?= $(shell go env GOARM)
 
 .PHONY: all
-all: openvpn
+all: rpi_gpio
 
-.PHONY: openvpn
-openvpn:
-	go build ./cmd/openvpn
+.PHONY: rpi_gpio
+rpi_gpio:
+	go build ./cmd/rpi_gpio
 
 .PHONY: dist
-dist: openvpn-$(GOOS)-$(GOARCH).tar.gz
+dist: rpi_gpio-$(GOOS)-$(GOARCH).tar.gz
 
 .PHONY: dist-all
-dist-all: openvpn-linux-amd64.tar.gz
-dist-all: openvpn-windows-amd64.zip
+dist-all: rpi_gpio-linux-amd64.tar.gz
+dist-all: rpi_gpio-windows-amd64.zip
 
-openvpn-linux-amd64.tar.gz: GOOS := linux
-openvpn-linux-amd64.tar.gz: GOARCH := amd64
-openvpn-windows-amd64.zip: GOOS := windows
-openvpn-windows-amd64.zip: GOARCH := amd64
-openvpn-windows-amd64.zip: EXT := .exe
-openvpn-%.tar.gz:
-	mkdir -p "dist/openvpn-$*"
-	env GOOS=$(GOOS) GOARCH=$(GOARCH) go build -o "dist/openvpn-$*/openvpn$(EXT)" -ldflags "-w -s" ./cmd/openvpn
-	cp openvpn.conf "dist/openvpn-$*"
-	cd dist && tar czf "$@" "openvpn-$*"
+rpi_gpio-linux-amd64.tar.gz: GOOS := linux
+rpi_gpio-linux-amd64.tar.gz: GOARCH := amd64
+rpi_gpio-windows-amd64.zip: GOOS := windows
+rpi_gpio-windows-amd64.zip: GOARCH := amd64
+rpi_gpio-windows-amd64.zip: EXT := .exe
+rpi_gpio-%.tar.gz:
+	mkdir -p "dist/rpi_gpio-$*"
+	env GOOS=$(GOOS) GOARCH=$(GOARCH) go build -o "dist/rpi_gpio-$*/rpi_gpio$(EXT)" -ldflags "-w -s" ./cmd/rpi_gpio
+	cp rpi_gpio.conf "dist/rpi_gpio-$*"
+	cd dist && tar czf "$@" "rpi_gpio-$*"
 
-openvpn-%.zip:
-	mkdir -p "dist/openvpn-$*"
-	env GOOS=$(GOOS) GOARCH=$(GOARCH) go build -o "dist/openvpn-$*/openvpn$(EXT)" -ldflags "-w -s" ./cmd/openvpn
-	cp openvpn.conf "dist/openvpn-$*"
-	cd dist && zip -r "$@" "openvpn-$*"
+rpi_gpio-%.zip:
+	mkdir -p "dist/rpi_gpio-$*"
+	env GOOS=$(GOOS) GOARCH=$(GOARCH) go build -o "dist/rpi_gpio-$*/rpi_gpio$(EXT)" -ldflags "-w -s" ./cmd/rpi_gpio
+	cp rpi_gpio.conf "dist/rpi_gpio-$*"
+	cd dist && zip -r "$@" "rpi_gpio-$*"
 
 .PHONY: clean
 clean:
-	rm -f openvpn{,.exe}
+	rm -f rpi_gpio{,.exe}
 	rm -rf dist

@@ -7,7 +7,7 @@ import (
 
 	"github.com/influxdata/telegraf"
 	"github.com/influxdata/telegraf/plugins/common/shim"
-	"github.com/influxdata/telegraf/plugins/inputs/openvpn"
+	"github.com/influxdata/telegraf/plugins/inputs/rpi_gpio"
 )
 
 var configFile = flag.String("config", "", "path to the config file for this plugin")
@@ -29,7 +29,7 @@ func main() {
 	flag.Parse()
 
 	if *usage {
-		printConfig("openvpn", &openvpn.OpenVPN{})
+		printConfig("rpi_gpio", &rpi_gpio.RPiGPIO{})
 
 		os.Exit(0)
 	}
