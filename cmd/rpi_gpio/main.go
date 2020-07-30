@@ -7,7 +7,7 @@ import (
 
 	"github.com/influxdata/telegraf"
 	"github.com/influxdata/telegraf/plugins/common/shim"
-	"github.com/influxdata/telegraf/plugins/inputs/rpi_gpio"
+	"github.com/mhall119/telegraf-execd-rpigpio/plugins/inputs/rpi_gpio"
 )
 
 var configFile = flag.String("config", "", "path to the config file for this plugin")
